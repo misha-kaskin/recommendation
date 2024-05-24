@@ -191,6 +191,23 @@ public class Getter {
                     }
                     break;
                 }
+                case "cluster1" : {
+                    if (strs.length != 2) {
+                        System.out.println("Incorrect format..............");
+                        break;
+                    } else {
+                        int param;
+                        try {
+                            param = Integer.parseInt(strs[1]);
+                            List<Integer> list = getClusters1(param);
+                            System.out.println(gson.toJson(list));
+                        } catch (Exception e) {
+                            System.out.println("Incorrect format..............");
+                            break;
+                        }
+                    }
+                    break;
+                }
                 case "bucket": {
                     Optional<List<String>> strings = Optional.ofNullable(bucket.get(user));
                     strings.ifPresentOrElse(
@@ -249,6 +266,23 @@ public class Getter {
 
     public static List<Integer> getUsers2(int offset, int limit) {
         return users.subList(offset, offset + limit);
+    }
+
+    public static List<Integer> getClusters1(int cluster) throws SQLException {
+        String sql = "SELECT user_id\n" +
+                "FROM kmeans_summary\n" +
+                "WHERE clusters = ?\n" +
+                "LIMIT 5;\n";
+
+        Connection conn1 = conn;
+        PreparedStatement ps = conn1.prepareStatement(sql);
+        ps.setInt(1, cluster);
+        ResultSet resultSet = ps.executeQuery();
+        List<Integer> list = new ArrayList<>();
+        while (resultSet.next()) {
+            list.add(resultSet.getInt(1));
+        }
+        return list;
     }
 
     public static void initUserCluster() throws SQLException {

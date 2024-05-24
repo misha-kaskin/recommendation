@@ -23,6 +23,26 @@ public class Test {
         main3();
         main4();
         main5();
+        main6(21);
+    }
+
+    public static void main6(int cluster) throws SQLException {
+        String sql = "SELECT t1.clusters, count(DISTINCT t2.order_id) \n" +
+                "FROM (\n" +
+                "\tSELECT user_id, clusters\n" +
+                "\tFROM kmeans_summary ks\n" +
+                "\tWHERE clusters = 21\n" +
+                ") t1\n" +
+                "JOIN orders t2 ON (t1.user_id = t2.user_id AND eval_set LIKE 'prior')\n" +
+                "GROUP BY t1.clusters;";
+
+        Connection conn1 = conn;
+        PreparedStatement ps = conn1.prepareStatement(sql);
+        ResultSet resultSet = ps.executeQuery();
+
+        while (resultSet.next()) {
+            System.out.println(resultSet.getInt(2));
+        }
     }
 
     public static void main(int k) throws SQLException {
