@@ -212,7 +212,7 @@ public class DaoUtil {
     public static void initProducts() throws SQLException, IOException {
         Statement st = conn.createStatement();
         String sqlAisles = "CREATE TABLE products (product_id int, product_name text, aisle_id int, department_id int);";
-//        st.execute(sqlAisles);
+        st.execute(sqlAisles);
 
         byte[] bytes = Files.readAllBytes(Path.of("src/main/resources/products.csv"));
         String data = new String(bytes);
@@ -331,13 +331,13 @@ public class DaoUtil {
     }
 
     public static void main(String[] args) throws SQLException, IOException {
-//        DaoUtil.initAisles();
-//        DaoUtil.initDepartments();
-//        DaoUtil.initOrderProductsPrior();
-//        DaoUtil.initOrderProductsTrain();
-//        DaoUtil.initOrders();
-//        DaoUtil.initProducts();
-//        DaoUtil.initSampleSubmission();
-//        DaoUtil.initKMeansSummary();
+        DaoUtil.initAisles();
+        DaoUtil.initDepartments();
+        DaoUtil.initOrderProductsPrior();
+        DaoUtil.initOrderProductsTrain();
+        DaoUtil.initOrders();
+        DaoUtil.initProducts();
+        DaoUtil.initSampleSubmission();
+        DaoUtil.initKMeansSummary();
     }
 }

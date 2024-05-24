@@ -1,6 +1,7 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +21,15 @@ public class Getter {
             .setPrettyPrinting()
             .create();
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, IOException {
         Scanner scanner = new Scanner(System.in);
         getUsersInit();
         initUserCluster();
+//        Thread thread = new Thread(() -> System.out.println("\u001B[31m" + "GOODBYE DIMA!!!"));
+//        Thread thread = new Thread(() -> {
+//            while (true);
+//        });
+//        Runtime.getRuntime().addShutdownHook(thread);
         System.out.println(getUsers2(0, 10));
 
         while (true) {
